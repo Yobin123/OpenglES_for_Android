@@ -1,0 +1,2 @@
+# OpenglES_for_Android
+用于对Opengles应用开发实践指南Android版源码创建
