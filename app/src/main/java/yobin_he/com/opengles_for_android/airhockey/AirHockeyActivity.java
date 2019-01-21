@@ -24,11 +24,12 @@ public class AirHockeyActivity extends BaseActivity {
         surfaceView = new GLSurfaceView(context);
         if(OpenglesHelper.isSupportsVersion(context,OpenglesHelper.OPENGL_VERSION)){
             surfaceView.setEGLContextClientVersion(2);
-            surfaceView.setRenderer(new AirHockeyRender());
+            surfaceView.setRenderer(new AirHockeyRender(context));
             isRenderSet = true;
         }else {
             Toast.makeText(context,"your device cannot support opengl es 2.0",Toast.LENGTH_SHORT).show();
             return;
         }
+        setContentView(surfaceView);
     }
 }
