@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".airhockey.AirHockeyActivity" />
         <activity android:name=".BaseActivity" />
-        <activity android:name=".first_project.FirstOpenGlesActivity"></activity>
+        <activity android:name=".first_project.FirstOpenGlesActivity"/>
+        <activity android:name=".airhockey_1.AirHockeyActivity1"/>
     </application>
 
 </manifest>

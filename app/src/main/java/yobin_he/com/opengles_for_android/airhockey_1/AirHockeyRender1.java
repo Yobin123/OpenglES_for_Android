@@ -1,17 +1,16 @@
-package yobin_he.com.opengles_for_android.airhockey;
+package yobin_he.com.opengles_for_android.airhockey_1;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.util.Log;
-import android.widget.Toast;
+import android.provider.Telephony;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
 import yobin_he.com.opengles_for_android.R;
@@ -33,21 +32,25 @@ import yobin_he.com.opengles_for_android.utils.TextResourceReader;
  *       4.链接程序并使用
  */
 
-public class AirHockeyRender implements GLSurfaceView.Renderer {
+public class AirHockeyRender1 implements GLSurfaceView.Renderer {
     private static final String TAG = "AirHockeyRender";
-    private static final String U_COLOR = "u_Color";
+    private static final String A_COLOR = "a_Color";
     private static final  String A_POSITION = "a_Position";
+
+
     private static int POSITION_COMPONENT_COUNT = 2;
+    private static int COLOR_COMPONENT_COUNT = 3;
     private static final int BYTES_PER_FLOAT = 4;
+    private static final int STRIDE = (POSITION_COMPONENT_COUNT + COLOR_COMPONENT_COUNT) * BYTES_PER_FLOAT;
 
     private final FloatBuffer vertexData;
     private Context context;
     private int program;
-    private int uColorLocation;
     private int aPositionLocation;
+    private int aColorLocation;
 
 
-    public AirHockeyRender(Context context) {
+    public AirHockeyRender1(Context context) {
         this.context = context;
 
         /*
@@ -104,26 +107,45 @@ public class AirHockeyRender implements GLSurfaceView.Renderer {
 //                0f,  0.25f
 //        };
 
-       //以逆时针的顺序排列顶点，这是卷曲顺序(可以重用顶点)
-        float[] tableVertices = {
-                0f,0f,
-                // Triangle fun
-                -0.5f, -0.5f,
-                0.5f,  -0.5f,
-                0.5f,  0.5f,
-
-
+//       //以逆时针的顺序排列顶点，这是卷曲顺序(可以重用顶点)
+//        float[] tableVertices = {
+//                0f,0f,
+//                // Triangle fun
 //                -0.5f, -0.5f,
-                -0.5f, 0.5f,
-                -0.5f,  -0.5f,
+//                0.5f,  -0.5f,
+//                0.5f,  0.5f,
+//
+//
+////                -0.5f, -0.5f,
+//                -0.5f, 0.5f,
+//                -0.5f,  -0.5f,
+//
+//                // Line 1
+//                -0.5f, 0f,
+//                0.5f, 0f,
+//
+//                // Mallets
+//                0f, -0.25f,
+//                0f,  0.25f
+//        };
+
+    //以逆时针的顺序排列顶点，这是卷曲顺序(带有颜色)
+        float[] tableVertices = {
+                //坐标顺序 x,y,R,G,B,A
+                0f,0f,1f,1f,1f,
+                -0.5f, -0.5f, 0.7f,0.7f,0.7f,
+                0.5f,  -0.5f,0.7f,0.7f,0.7f,
+                0.5f,  0.5f,0.7f,0.7f,0.7f,
+                -0.5f, 0.5f,0.7f,0.7f,0.7f,
+                -0.5f,  -0.5f,0.7f,0.7f,0.7f,
 
                 // Line 1
-                -0.5f, 0f,
-                0.5f, 0f,
+                -0.5f, 0f,1f,0f,0f,
+                0.5f, 0f,1f,0f,0f,
 
                 // Mallets
-                0f, -0.25f,
-                0f,  0.25f
+                0f, -0.25f,0f,0f,1f,
+                0f,  0.25f,1f,0f,0f
         };
 
 
@@ -138,7 +160,6 @@ public class AirHockeyRender implements GLSurfaceView.Renderer {
                 .order(ByteOrder.nativeOrder()) //告诉字节缓冲区按照本地字节序组织内容（不同的平台有不同的排序）
                 .asFloatBuffer();
         vertexData.put(tableVertices);
-        vertexData.position(0);
 
     }
 
@@ -147,8 +168,8 @@ public class AirHockeyRender implements GLSurfaceView.Renderer {
         GLES20.glClearColor(0.0f,0.0f,0.0f,0.0f);
 
         //获取着色器资源。
-        String vertexShaderSource = TextResourceReader.readTextFileFromResource(context, R.raw.simple_vertex_shader);
-        String fragmentShaderSource = TextResourceReader.readTextFileFromResource(context,R.raw.simple_fragment_shader);
+        String vertexShaderSource = TextResourceReader.readTextFileFromResource(context, R.raw.simple_vertex_shader1);
+        String fragmentShaderSource = TextResourceReader.readTextFileFromResource(context,R.raw.simple_fragment_shader1);
 
         //创建顶点着色器和片元着色器
         int vertexShader = OpenglesHelper.compileVertexShader(vertexShaderSource);
@@ -161,12 +182,21 @@ public class AirHockeyRender implements GLSurfaceView.Renderer {
 
         GLES20.glUseProgram(program);
 
-        uColorLocation = GLES20.glGetUniformLocation(program,U_COLOR);  //其中uniform或者attribute跟raw中对应的一致。
+        aColorLocation = GLES20.glGetAttribLocation(program,A_COLOR);  //其中uniform或者attribute跟raw中对应的一致。
         aPositionLocation = GLES20.glGetAttribLocation(program,A_POSITION);
 
-        //关联属性与顶点数据坐标
-        GLES20.glVertexAttribPointer(aPositionLocation,POSITION_COMPONENT_COUNT,GLES20.GL_FLOAT,false,0,vertexData);
+        // Bind our data, specified by the variable vertexData, to the vertex
+        // attribute at location A_POSITION_LOCATION.
+        vertexData.position(0);
+        GLES20.glVertexAttribPointer(aPositionLocation,POSITION_COMPONENT_COUNT,GLES20.GL_FLOAT,false,STRIDE,vertexData);
         GLES20.glEnableVertexAttribArray(aPositionLocation);
+
+        // Bind our data, specified by the variable vertexData, to the vertex
+        // attribute at location A_COLOR_LOCATION.(由变量vertexData指定，绑定数据到顶点属性在颜色分量的位置)
+        vertexData.position(POSITION_COMPONENT_COUNT);
+        GLES20.glVertexAttribPointer(aColorLocation,COLOR_COMPONENT_COUNT,GLES20.GL_FLOAT,false,STRIDE,vertexData);
+        GLES20.glEnableVertexAttribArray(aColorLocation);
+
     }
 
     @Override
@@ -180,20 +210,18 @@ public class AirHockeyRender implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
 //        //绘制桌面
-        GLES20.glUniform4f(uColorLocation,1.0f,1.0f,1.0f,1.0f);
-//        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
+
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN,0,6);
 
         //绘制中间分割线
-        GLES20.glUniform4f(uColorLocation,1.0f,0.0f,0.0f,1.0f);
+
         GLES20.glDrawArrays(GLES20.GL_LINES,6,2);
 
         //绘制第一个球
-        GLES20.glUniform4f(uColorLocation,0.0f,0.0f,1.0f,1.0f);
+
         GLES20.glDrawArrays(GLES20.GL_POINTS,8,1);
 
-        //绘制第二个球
-        GLES20.glUniform4f(uColorLocation, 1.0f, 0.0f, 0.0f, 1.0f);
+
         GLES20.glDrawArrays(GLES20.GL_POINTS,9,1);
     }
 }
