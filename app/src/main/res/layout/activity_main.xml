@@ -29,6 +29,12 @@
               android:layout_height="wrap_content"
               android:text="曲棍球(增加颜色和着色)"/>
 
+          <Button
+              android:id="@+id/btn_air_hockey_ortho"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="曲棍球(增加matrix即完成矩阵变换)"/>
+
       </LinearLayout>
   </ScrollView>
 

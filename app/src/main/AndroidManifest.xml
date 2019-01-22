@@ -20,6 +20,7 @@
         <activity android:name=".BaseActivity" />
         <activity android:name=".first_project.FirstOpenGlesActivity"/>
         <activity android:name=".airhockey_1.AirHockeyActivity1"/>
+        <activity android:name=".airhockey_ortho.AirHockeyOrthoActivity"/>
     </application>
 
 </manifest>
