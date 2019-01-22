@@ -12,6 +12,7 @@ import yobin_he.com.opengles_for_android.airhockey.AirHockeyActivity;
 import yobin_he.com.opengles_for_android.airhockey_1.AirHockeyActivity1;
 import yobin_he.com.opengles_for_android.airhockey_3d.AirHockey3dActivity;
 import yobin_he.com.opengles_for_android.airhockey_ortho.AirHockeyOrthoActivity;
+import yobin_he.com.opengles_for_android.airhockey_textured.AirHockeyTexturedActivity;
 import yobin_he.com.opengles_for_android.first_project.FirstOpenGlesActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -21,6 +22,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_air_hockey_1;
     private Button btn_air_hockey_ortho;
     private Button btn_air_hockey_3d;
+    private Button btn_air_hockey_textured;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_air_hockey_1 = findViewById(R.id.btn_air_hockey_1);
         btn_air_hockey_ortho = findViewById(R.id.btn_air_hockey_ortho);
         btn_air_hockey_3d = findViewById(R.id.btn_air_hockey_3d);
+        btn_air_hockey_textured  = findViewById(R.id.btn_air_hockey_textured);
     }
 
     private void initListener() {
@@ -45,6 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_air_hockey_1.setOnClickListener(this);
         btn_air_hockey_ortho.setOnClickListener(this);
         btn_air_hockey_3d.setOnClickListener(this);
+        btn_air_hockey_textured.setOnClickListener(this);
     }
 
 
@@ -64,8 +68,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_air_hockey_ortho: //增加相应的矩阵变换。
                 startActivity(new Intent(mContext, AirHockeyOrthoActivity.class));
                 break;
-            case R.id.btn_air_hockey_3d:
+            case R.id.btn_air_hockey_3d://3d效果，增加透视矩阵
                 startActivity(new Intent(mContext, AirHockey3dActivity.class));
+                break;
+            case R.id.btn_air_hockey_textured: // 增加纹理
+                startActivity(new Intent(mContext, AirHockeyTexturedActivity.class));
                 break;
         }
     }

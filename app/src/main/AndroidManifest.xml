@@ -22,6 +22,7 @@
         <activity android:name=".airhockey_1.AirHockeyActivity1"/>
         <activity android:name=".airhockey_ortho.AirHockeyOrthoActivity"/>
         <activity android:name=".airhockey_3d.AirHockey3dActivity"/>
+        <activity android:name=".airhockey_textured.AirHockeyTexturedActivity"/>
     </application>
 
 </manifest>
