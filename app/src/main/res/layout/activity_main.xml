@@ -35,6 +35,12 @@
               android:layout_height="wrap_content"
               android:text="曲棍球(增加matrix即完成矩阵变换)"/>
 
+          <Button
+              android:id="@+id/btn_air_hockey_3d"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="曲棍球(增加透视变换)"/>
+
       </LinearLayout>
   </ScrollView>
 
