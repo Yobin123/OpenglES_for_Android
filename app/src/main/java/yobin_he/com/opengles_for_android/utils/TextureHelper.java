@@ -60,8 +60,8 @@ public class TextureHelper {
 
         //加载纹理到OpenGL并返回其ID
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D,0,bitmap,0);
-        bitmap.recycle();//释放bitmap
         GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D); //生成贴图
+        bitmap.recycle();//释放bitmap
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,0);//解除纹理绑定，防止其他纹理调用意外改变这个纹理
         return textureObjectIds[0];
     }
