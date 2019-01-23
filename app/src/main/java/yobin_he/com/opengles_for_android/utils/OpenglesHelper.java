@@ -170,8 +170,8 @@ public class OpenglesHelper {
         int program;
 
         //编译着色器
-        int vertexShader = compileVertexShader(vertexShaderSource);
-        int fragmentShader = compileFragmentShader(fragmentShaderSource);
+        int vertexShader = compileVertexShader(vertexShaderSource); //编译相应顶点着色器
+        int fragmentShader = compileFragmentShader(fragmentShaderSource); //编译相应片元着色器
 
         //链接
         program = linkProgram(vertexShader, fragmentShader);

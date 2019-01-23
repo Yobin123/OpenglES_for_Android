@@ -93,8 +93,8 @@ public class AirHockeyTexturedRender implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
         //draw the table
-        textureProgram.useProgram();
-        textureProgram.setUniforms(projectionMatrix, texture);
+        textureProgram.useProgram(); //使用program    //其中包含了顶点着色器和片元着色器
+        textureProgram.setUniforms(projectionMatrix, texture); //增加矩阵变换
         table.bindData(textureProgram);
         table.draw();
 

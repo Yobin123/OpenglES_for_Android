@@ -16,6 +16,12 @@ import yobin_he.com.opengles_for_android.R;
  * @describe : TODO
  * @org scimall
  * @email he.yibin@scimall.org.cn
+ *
+ * 1.得到相应的program程序是需要通过 编译，链接， 认证
+ *其中链接：
+ *
+ *
+ *
  */
 
 public class TextureShaderProgram extends ShaderProgram {
