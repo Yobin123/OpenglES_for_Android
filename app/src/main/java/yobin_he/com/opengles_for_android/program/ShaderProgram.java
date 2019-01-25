@@ -19,6 +19,7 @@ import yobin_he.com.opengles_for_android.utils.TextResourceReader;
 public class ShaderProgram {
     //uniform constants
     protected static final  String U_MATRIX = "u_Matrix";
+    protected static final  String U_COLOR = "u_Color";
     protected static final String U_TEXTURE_UNIT = "u_TextureUnit";
 
     //attribute constants

@@ -99,10 +99,10 @@ public class AirHockeyTexturedRender implements GLSurfaceView.Renderer {
         table.draw();
 
         //draw the mallet
-        colorProgram.useProgram();
-        colorProgram.setUniforms(projectionMatrix);
-        mallet.bindData(colorProgram);
-        mallet.draw();
+//        colorProgram.useProgram();
+//        colorProgram.setUniforms(projectionMatrix);
+//        mallet.bindData(colorProgram);
+//        mallet.draw();
 
     }
 }

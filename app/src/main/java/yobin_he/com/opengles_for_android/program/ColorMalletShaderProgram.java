@@ -17,35 +17,31 @@ import yobin_he.com.opengles_for_android.R;
  * @email he.yibin@scimall.org.cn
  */
 
-public class ColorShaderProgram extends ShaderProgram {
+public class ColorMalletShaderProgram extends ShaderProgram {
     private final int uMatrixLocation;
-    private  final  int aPositionLocation;
-    private final  int aColorLocation;
+    private final int uColorLocation;
 
-    public ColorShaderProgram(Context context) {
-        super(context, R.raw.ortho_vertex_shader, R.raw.ortho_fragment_shader);
+    private  final  int aPositionLocation;
+    public ColorMalletShaderProgram(Context context) {
+        super(context, R.raw.mallet_vertex_shader, R.raw.mallet_fragment_shader);
         //uniform所在位置
         uMatrixLocation = GLES20.glGetUniformLocation(program,U_MATRIX);
+        uColorLocation = GLES20.glGetUniformLocation(program,U_COLOR);
         //属性位置
         aPositionLocation = GLES20.glGetAttribLocation(program,A_POSITION);
-        aColorLocation = GLES20.glGetAttribLocation(program,A_COLOR);
 
     }
 
-    public void setUniforms(float[] matrix){
+
+    public void setUniforms(float[] matrix,float r,float g,float b){
         //传入matrix
         GLES20.glUniformMatrix4fv(uMatrixLocation,1,false,matrix,0);
-
+        GLES20.glUniform4f(uColorLocation,r,g,b,1f);
     }
-
-
 
     public int getPositionAttributeLocation() {
         return aPositionLocation;
     }
 
-    public int getColorAttributeLocation() {
-        return aColorLocation;
-    }
 
 }
