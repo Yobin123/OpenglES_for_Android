@@ -40,9 +40,9 @@ public class AirHockeyMalletsRender implements GLSurfaceView.Renderer {
     private Context context;
 
     private final float[] projectionMatrix = new float[16];
-    private final float[] modelMatrix = new float[16];
+    private final float[] modelMatrix = new float[16]; //模型矩阵
 
-    private final float[] viewMatrix = new float[16];
+    private final float[] viewMatrix = new float[16];  //视图矩阵
     private final float[] viewProjectMatrix = new float[16];
     private final float[] modelViewProjectMatrix = new float[16];
 
@@ -77,8 +77,12 @@ public class AirHockeyMalletsRender implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0,0,width,height);
-        MatrixHelper.perspectiveM(projectionMatrix,45,(float)width / (float)height,1f,10f);
-        Matrix.setLookAtM(viewMatrix,0,0f,1.2f,2.2f,0f,0f,0f,0f,1f,0f);
+        MatrixHelper.perspectiveM(projectionMatrix,45,(float)width / (float)height,1f,10f);//投影矩阵。
+        Matrix.setLookAtM(viewMatrix, //目标数组，以便能存储图形矩阵
+                0, //偏移值
+                0f,1.2f,2.2f, //眼睛所在位置
+                0f,0f,0f,//物体位置
+                0f,1f,0f); //头指向的地方，upY值为1，意味头直接指向上方。
 
     }
 
@@ -120,8 +124,8 @@ public class AirHockeyMalletsRender implements GLSurfaceView.Renderer {
 
     }
 
-    private void positionTableInScene(){
-        Matrix.setIdentityM(modelMatrix,0);
+    private void positionTableInScene(){ //modelViewProjectMatrix = viewProjectMatrix * modelMatrix;
+        Matrix.setIdentityM(modelMatrix,0);//生成单位矩阵
         Matrix.rotateM(modelMatrix,0,-90f,1f,0f,0f); //绕x旋转负90度
         Matrix.multiplyMM(modelViewProjectMatrix,0,viewProjectMatrix,0,modelMatrix,0);
     }

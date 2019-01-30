@@ -51,6 +51,11 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="曲棍球(改进球拍)"/>
+          <Button
+              android:id="@+id/btn_air_hockey_touch"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="曲棍球(增加交互)"/>
 
       </LinearLayout>
   </ScrollView>

@@ -24,8 +24,10 @@ public class Puck {
     private final VertexArray vertexArray;
 
     public Puck(float radius, float height, int numPointsAroundPuck) {
+        //构造的对象中包含vertexData(顶点数据)，drawList用于绘制
         ObjectBuilder.GenerateData generateData = ObjectBuilder.createPuck(
                 new Geometry.Cylinder(new Geometry.Point(0,0,0),radius,height),numPointsAroundPuck);
+
         this.radius = radius;
         this.height = height;
         vertexArray = new VertexArray(generateData.vertexData);

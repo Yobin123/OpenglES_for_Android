@@ -12,7 +12,7 @@ import yobin_he.com.opengles_for_android.utils.Geometry;
  * @package: yobin_he.com.opengles_for_android.objects
  * @fileName: ObjectBuilder
  * @Date : 2019/1/24  10:54
- * @describe : TODO
+ * @describe : 利用build模式构建相应数据模型类。
  * @org scimall
  * @email he.yibin@scimall.org.cn
  */
@@ -46,9 +46,11 @@ public class ObjectBuilder {
     static GenerateData createPuck(Geometry.Cylinder puck,int numPoints){
         int size = sizeOfCircleInVertices(numPoints) + sizeOfOpenCylinderInVertices(numPoints);
         ObjectBuilder builder = new ObjectBuilder(size); //size为点的个数
-        Geometry.Circle puckTop = new Geometry.Circle(puck.center.translateY(puck.height / 2f),puck.radius);
+
+        Geometry.Circle puckTop = new Geometry.Circle(puck.center.translateY(puck.height / 2f),puck.radius);//构造圆心和半径。
         builder.appendCircle(puckTop,numPoints);
         builder.appendOpenCylinder(puck,numPoints);
+
         return builder.build();
     }
 
@@ -63,15 +65,15 @@ public class ObjectBuilder {
     static GenerateData createMallet(Geometry.Point center,float radius,float height,int numPoints){
         int size = sizeOfCircleInVertices(numPoints) * 2 + sizeOfOpenCylinderInVertices(numPoints) * 2;
         ObjectBuilder builder = new ObjectBuilder(size);
+
         //first,generate the mallet base;
         float baseHeight = height * 0.25f;
-
         Geometry.Circle baseCircle = new Geometry.Circle(center.translateY(-baseHeight),radius);
-
         Geometry.Cylinder baseCylinder = new Geometry.Cylinder(baseCircle.center.translateY(-baseHeight / 2f),radius,baseHeight);
 
         builder.appendCircle(baseCircle,numPoints);
         builder.appendOpenCylinder(baseCylinder,numPoints);
+
         //生成木槌把手
         float handleHeight = height * 0.75f;
         float handleRadius = radius / 3f;
@@ -81,6 +83,7 @@ public class ObjectBuilder {
                 center.translateY(-handleHeight / 2f),handleRadius,handleHeight);
         builder.appendCircle(handleCircle,numPoints);
         builder.appendOpenCylinder(handleCylinder,numPoints);
+
         return builder.build();
     }
 
@@ -111,7 +114,7 @@ public class ObjectBuilder {
 
 
     private void appendCircle(Geometry.Circle circle ,int numPoints){
-        final  int startVertex = offset / FLOATS_PER_VERTEX;
+        final  int startVertex = offset / FLOATS_PER_VERTEX;//每三个绘制一个。
         final  int numVertices = sizeOfCircleInVertices(numPoints);
 
         //中心点
@@ -128,7 +131,7 @@ public class ObjectBuilder {
             vertexData[offset++] = circle.center.z + circle.radius * (float)Math.sin(angleInRadians); //该点的z轴坐标
         }
 
-        drawList.add(new DrawCommand() {
+        drawList.add(new DrawCommand() { //
             @Override
             public void draw() {
                 GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN,startVertex,numVertices); //绘制圆弧
@@ -161,7 +164,7 @@ public class ObjectBuilder {
         drawList.add(new DrawCommand() {
             @Override
             public void draw() {
-                GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP,startVertex,numVertices);
+                GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP,startVertex,numVertices);//绘制圆形带
             }
         });
 

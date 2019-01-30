@@ -13,6 +13,8 @@ import yobin_he.com.opengles_for_android.airhockey_1.AirHockeyActivity1;
 import yobin_he.com.opengles_for_android.airhockey_3d.AirHockey3dActivity;
 import yobin_he.com.opengles_for_android.airhockey_ortho.AirHockeyOrthoActivity;
 import yobin_he.com.opengles_for_android.airhockey_textured.AirHockeyTexturedActivity;
+import yobin_he.com.opengles_for_android.airhockey_touch.AirHockeyTouchActivity;
+import yobin_he.com.opengles_for_android.airhockey_touch.AirHockeyTouchRender;
 import yobin_he.com.opengles_for_android.airhokey_mallets.AirHockeyMalletsdActivity;
 import yobin_he.com.opengles_for_android.first_project.FirstOpenGlesActivity;
 
@@ -25,6 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_air_hockey_3d;
     private Button btn_air_hockey_textured;
     private Button btn_air_hockey_mallet;
+    private Button btn_air_hockey_touch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_air_hockey_3d = findViewById(R.id.btn_air_hockey_3d);
         btn_air_hockey_textured  = findViewById(R.id.btn_air_hockey_textured);
         btn_air_hockey_mallet = findViewById(R.id.btn_air_hockey_mallet);
+        btn_air_hockey_touch = findViewById(R.id.btn_air_hockey_touch);
     }
 
     private void initListener() {
@@ -53,6 +57,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_air_hockey_3d.setOnClickListener(this);
         btn_air_hockey_textured.setOnClickListener(this);
         btn_air_hockey_mallet.setOnClickListener(this);
+        btn_air_hockey_touch.setOnClickListener(this);
     }
 
 
@@ -81,6 +86,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             case R.id.btn_air_hockey_mallet: //改进相应的球拍
                 startActivity(new Intent(mContext, AirHockeyMalletsdActivity.class));
+                break;
+            case R.id.btn_air_hockey_touch:
+                startActivity(new Intent(mContext, AirHockeyTouchActivity.class));
                 break;
         }
     }
