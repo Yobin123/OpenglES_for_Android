@@ -127,7 +127,7 @@ public class AirHockeyTouchRender implements GLSurfaceView.Renderer {
 
         //将工程矩阵和视图矩阵相乘
         Matrix.multiplyMM(viewProjectMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
-       Matrix.invertM(invertedViewProjectionMatrix,0,viewProjectMatrix,0);
+        Matrix.invertM(invertedViewProjectionMatrix,0,viewProjectMatrix,0);  //反转矩阵
 
         //绘制桌子
         positionTableInScene();

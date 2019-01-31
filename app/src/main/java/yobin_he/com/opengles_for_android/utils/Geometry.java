@@ -142,12 +142,14 @@ public class Geometry {
     }
 
     public static boolean intersects(Sphere sphere, Ray ray) {
-        return distanceBetween(sphere.center, ray) < sphere.radius;
+        return distanceBetween(sphere.center, ray) < sphere.radius; //中心点到线的距离。如果小于球体的半径说明两者相交
     }
 
     public static float distanceBetween(Point point, Ray ray) {
-        Vector p1ToPoint = vectorBetween(ray.point, point);
-        Vector p2ToPoint = vectorBetween(ray.point.translate(ray.vector), point);
+        Vector p1ToPoint = vectorBetween(ray.point, point); //第一个点
+
+        Vector p2ToPoint = vectorBetween(ray.point.translate(ray.vector), point); //第二个点
+
         float areaOfTriangleTimesTwo = p1ToPoint.crossProduct(p2ToPoint).length();
         float lengthOfBase = ray.vector.length();
         float distanceFromPointToRay = areaOfTriangleTimesTwo / lengthOfBase;
