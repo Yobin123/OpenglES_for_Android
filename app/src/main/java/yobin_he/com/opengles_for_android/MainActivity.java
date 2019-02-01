@@ -17,6 +17,7 @@ import yobin_he.com.opengles_for_android.airhockey_touch.AirHockeyTouchActivity;
 import yobin_he.com.opengles_for_android.airhockey_touch.AirHockeyTouchRender;
 import yobin_he.com.opengles_for_android.airhokey_mallets.AirHockeyMalletsdActivity;
 import yobin_he.com.opengles_for_android.first_project.FirstOpenGlesActivity;
+import yobin_he.com.opengles_for_android.particles.ParticleActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Context mContext;
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_air_hockey_textured;
     private Button btn_air_hockey_mallet;
     private Button btn_air_hockey_touch;
+    private Button btn_particle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_air_hockey_textured  = findViewById(R.id.btn_air_hockey_textured);
         btn_air_hockey_mallet = findViewById(R.id.btn_air_hockey_mallet);
         btn_air_hockey_touch = findViewById(R.id.btn_air_hockey_touch);
+        btn_particle = findViewById(R.id.btn_particle);
     }
 
     private void initListener() {
@@ -58,6 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_air_hockey_textured.setOnClickListener(this);
         btn_air_hockey_mallet.setOnClickListener(this);
         btn_air_hockey_touch.setOnClickListener(this);
+        btn_particle.setOnClickListener(this);
     }
 
 
@@ -89,6 +93,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_air_hockey_touch:
                 startActivity(new Intent(mContext, AirHockeyTouchActivity.class));
+                break;
+            case R.id.btn_particle:
+                startActivity(new Intent(mContext, ParticleActivity.class));
                 break;
         }
     }

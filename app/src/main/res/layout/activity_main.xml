@@ -57,6 +57,12 @@
               android:layout_height="wrap_content"
               android:text="曲棍球(增加交互)"/>
 
+          <Button
+              android:id="@+id/btn_particle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="粒子系统"/>
+
       </LinearLayout>
   </ScrollView>
 
